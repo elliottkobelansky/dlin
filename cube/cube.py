@@ -28,32 +28,6 @@ class Cube():
         self.cube = self.solved
         return
 
-    def printcube(self):
-        for face in ["U", "F", "R", "B", "L", "D"]:
-            # consider making FACES a list
-            axis, pos = FACES[face].values()
-            # numpy be weird sometimes
-            index = [slice(None), slice(None), slice(None)]
-            index[axis] = pos
-            namepieces = np.vectorize(lambda x: (x.color(axis)))
-            pieces = namepieces(self.cube[tuple(index)])
-            if face in {"U", "F", "B", "L", "D"}:
-                pieces = np.rot90(pieces)
-            if face in {"L"}:
-                pieces = np.rot90(pieces)
-            if face in {"R", "D"}:
-                pieces = np.flipud(pieces)
-            if face in {"B"}:
-                pieces = np.fliplr(pieces)
-            
-            for i, piece in enumerate(pieces.flatten()):
-                print(piece + "__", end=" ")
-                if not (i + 1) % 3:
-                    print()
-                if not (i + 1) % 9:
-                    print()
-        return 
-
     def single_turn(self, face, clockwise=True):
         k = 1 if clockwise else -1
         k = -k if face in {"U", "L", "F", "S", "M"} else k

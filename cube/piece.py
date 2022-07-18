@@ -1,7 +1,4 @@
-import colorama
 import numpy as np
-
-colorama.init(autoreset=True)
 
 class Piece():
     def __init__(self, x, y, z):
@@ -20,19 +17,6 @@ class Piece():
         name[1:] = sorted(name[1:], key=lambda x: face_precedence[x])
         return "".join(name)
                 
-    def color(self, axis):    
-        colors = {
-            "U": colorama.Back.BLACK,
-            "F": colorama.Back.RED,
-            "R": colorama.Back.GREEN,
-            "B": colorama.Back.YELLOW,
-            "L": colorama.Back.BLUE,
-            "D": colorama.Back.WHITE,
-            "": None
-        }
-        face = self.sides[axis]
-        return colors[face]
-    
     def swap_stickers(self, axis1, axis2):
         self.sides[axis1], self.sides[axis2] = self.sides[axis2], self.sides[axis1]
         return

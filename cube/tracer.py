@@ -1,10 +1,3 @@
-# Index with UFR, UF, etc
-
-# Each piece has U facing, F facing, L/R facing
-# Each piece belongs
-
-# 3 tuple (U, F, R) showing D face then front then right
-
 import cube.cube
 import numpy as np
 
@@ -61,74 +54,6 @@ class Tracer(cube.cube.Cube):
         self.tracing["rotation"] = rotations
 
         return
-  
-    def edge_swap(self, a, b):
-        if self.edge_orientation_adjust(a, b):
-            self.edge_flip(a, b)
-            
-        a = self.coords_from_name(a)  
-        b = self.coords_from_name(b)
-        slices = a.index(1), b.index(1)
-        s1, s2 = min(slices), max(slices)
-
-        self.cube[a], self.cube[b] = self.cube[b], self.cube[a]
-        
-        if s1 == s2:
-            pass
-        elif s1 == 0:
-            if s2 == 2:
-                for piece in (a, b):
-                    self.cube[piece].swap_stickers(0, 2)
-            elif s2 == 1:
-                if slices[0] == 0:
-                    self.cube[a].roll(-1)
-                    self.cube[b].roll(1)
-                elif slices[1] == 0:
-                    self.cube[a].roll(1)
-                    self.cube[b].roll(-1)
-        elif s1 == 1 and s2 == 2:
-            for piece in (a, b):
-                 self.cube[piece].swap_stickers(0, 1)
-                 
-        return
-    
-    def edge_flip(self, a, b):
-        a_name, b_name = a, b
-        a = self.coords_from_name(a)  
-        b = self.coords_from_name(b)
-        slices = a.index(1), b.index(1)
-        a_1, a_2 = {0, 1, 2} - {slices[0]}
-        b_1, b_2 = {0, 1, 2} - {slices[1]}
-        self.cube[a].swap_stickers(a_1, a_2)
-        self.cube[b].swap_stickers(b_1, b_2)
-        return ({"type": "flip", "targets": [a_name, b_name]})
-        
-    def swap(self, a, b):
-        piecetype = "edge" if len(a) == 2 else "corner"
-        print(a, b)
-        if piecetype == "edge":
-            self.edge_swap(a, b)
-        elif piecetype == "corner":
-            swap_type = self.corner_swap_type(a, b)
-            
-        return {"type": "2-swap", "targets": [a, b]}
-
-    def three_cycle(self, a, b, c):
-        self.swap(a, b)
-        self.swap(a, c)
-        self.printcube()
-        return {"type": "3-cycle", "targets": [a, b, c]}
-        
-    def edge_orientation(self, a):
-        if a[0] in {"U", "D"}:
-            return 0
-        elif a[0] in {"F", "B"} and a[1] in {"R", "L"}:
-            return 0
-        else:
-            return 1
-    
-    def edge_orientation_adjust(self, a, b):
-        return 1 if self.edge_orientation(a) != self.edge_orientation(b) else 0    
     
     def coords_from_name(self, name):
         coords = [1, 1, 1]
