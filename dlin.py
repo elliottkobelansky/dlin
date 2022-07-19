@@ -18,7 +18,7 @@ def dlin(scramble):
 
 def main():
     if len(sys.argv) != 2:
-        print("Usage: dlin scramble")
+        print("Usage: dlin [scramble]")
         sys.exit(1)
     else:
         try:
