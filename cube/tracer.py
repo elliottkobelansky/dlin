@@ -204,7 +204,7 @@ class Tracer(cube.cube.Cube):
         return
 
     def trace_cube(self):
-        self.tracing = {"edge": [], "corner": []}
+        self.tracing = {"edge": [], "corner": [], "scramble": self.scramble}
         self.rotate_into_orientation()
         self.trace_all("corner", self.buffers["corner"])
         self.trace_all("edge", self.buffers["edge"])
