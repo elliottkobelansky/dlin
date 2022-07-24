@@ -1,4 +1,4 @@
-# dlin-tracer
+# dlin
 Describe piece cycles on a Rubik's Cube.
 
 ## Installing
