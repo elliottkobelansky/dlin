@@ -1,16 +1,20 @@
 # dlin-tracer
-Python script to convert a 3BLD scramble into JSON describing cycles on the cube.
+Describe piece cycles on a Rubik's Cube.
 
 ## Usage: As a Python Package
 If you would like to use the tracer as a python package, please follow the
 following instructions.
 ### Installing
 To install, run
-`pip install dlin`
+```
+pip install dlin
+```
 ### Using
 The `dlin.tracer` function converts a scramble
 (set of moves defined by [WCA regulation 12a](https://www.worldcubeassociation.org/regulations/#12a) separated by spaces)
-into a python dictionary describing cycles on the cube. To use, run
+into a python dictionary describing cycles on the cube. 
+
+To use, run
 ```python
 from dlin import tracer
 ```
@@ -18,7 +22,7 @@ The following is example code to get the tracing for a scramble.
 ```python
 described_cycles = tracer("F' L2 B2 F2 D' F2 D F2 U R2 U' L' B L' R' F2 R2 B2 U2 Fw'")
 ```
-Here is an example of what would be contained in `described_cycles`
+Here is an example of what could be contained in `described_cycles`
 ```python
 {
     "edge": [
@@ -66,7 +70,7 @@ Here is an example of what would be contained in `described_cycles`
 ```
 ## Usage: Command Line Script
 Run 
-`dlin-trace [scramble]`
-Make sure to surround the scramble in quotation marks. This will output a json.
-With the similar structure to the dictionary shown above.
+```dlin-trace [scramble]```
+Make sure to surround the scramble in quotation marks. This will output a json, 
+with similar structure to the dictionary shown above.
 
