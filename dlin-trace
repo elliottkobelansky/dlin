@@ -1,0 +1,27 @@
+#!/usr/bin/env python3
+
+from dlin import trace
+import sys
+import json
+
+BUFFERS = {
+    "corner": ["UFR", "UFL", "UBL", "UBR", "DFR", "DFL", "DBR"],
+    "edge": ["UF", "UB", "UR", "UL", "FR", "FL", "DF", "DB", "DR", "DL"]
+}
+
+def main():
+    if len(sys.argv) > 10:
+        raise RuntimeError("Make sure scramble is surrounded by double quotes.")
+    if len(sys.argv) != 2:
+        raise RuntimeError("Usage: dlin [scramble]")
+    else:
+        try:
+            tracing = trace(sys.argv[1], BUFFERS)
+            print(json.dumps(tracing))
+        except:
+            raise RuntimeError("Unknown Error.")
+    return
+
+if __name__ == "__main__":
+    main()
+

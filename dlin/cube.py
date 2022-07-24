@@ -1,4 +1,4 @@
-import cube.piece
+import dlin.piece
 import numpy as np
 
 FACES = {
@@ -15,11 +15,11 @@ FACES = {
 
 class Cube():
     def __init__(self):
-        self.cube = np.ndarray((3, 3, 3), dtype=cube.piece.Piece)
+        self.cube = np.ndarray((3, 3, 3), dtype=dlin.piece.Piece)
         for x in range(3):
             for y in range(3):
                 for z in range(3):
-                    self.cube[x, y, z] = cube.piece.Piece(x, y, z)
+                    self.cube[x, y, z] = dlin.piece.Piece(x, y, z)
 
         self.solved = np.copy(self.cube)
         self.scramble = ""

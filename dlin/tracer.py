@@ -1,13 +1,8 @@
-import cube.cube
+import dlin.cube
 import numpy as np
 
-DEFAULTBUFFERS = {
-    "corner": ["UFR", "UFL", "UBL", "UBR", "DFR", "DFL", "DBR"],
-    "edge": ["UF", "UB", "UR", "UL", "FR", "FL", "DF", "DB", "DR", "DL"]
-}
-
-class Tracer(cube.cube.Cube):
-    def __init__(self, buffers=DEFAULTBUFFERS):
+class Tracer(dlin.cube.Cube):
+    def __init__(self, buffers):
         super().__init__()
         self.tracing = {"edge": [], "corner": []}
         self.buffers = buffers
@@ -73,7 +68,7 @@ class Tracer(cube.cube.Cube):
         return tuple(coords)   
     
     def where_to(self, a):
-        axis = cube.cube.FACES[a[0]]["axis"]
+        axis = dlin.cube.FACES[a[0]]["axis"]
         piece = self.coords_from_name(a)
         return self.cube[piece].get_name(axis=axis)
     
@@ -98,7 +93,7 @@ class Tracer(cube.cube.Cube):
         flips = []
         for piece in self.loopcube:
             x, y, z = piece
-            name = cube.piece.Piece(x, y, z).get_name()
+            name = dlin.piece.Piece(x, y, z).get_name()
             to_name = self.cube[piece].get_name()
             if 1 in piece \
             and set(list(name)) == set(list(to_name)) \
@@ -110,7 +105,7 @@ class Tracer(cube.cube.Cube):
         twists = []
         for piece in self.loopcube:
             x, y, z = piece
-            name = cube.piece.Piece(x, y, z).get_name()
+            name = dlin.piece.Piece(x, y, z).get_name()
             to_name = self.cube[piece].get_name()
             if 1 not in piece \
             and set(list(name)) == set(list(to_name)) \
@@ -209,4 +204,3 @@ class Tracer(cube.cube.Cube):
         self.trace_all("corner", self.buffers["corner"])
         self.trace_all("edge", self.buffers["edge"])
         return 
-    
