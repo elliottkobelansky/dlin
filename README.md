@@ -1,15 +1,12 @@
 # dlin-tracer
 Describe piece cycles on a Rubik's Cube.
 
-## Usage: As a Python Package
-If you would like to use the tracer as a python package, please follow the
-following instructions.
-### Installing
+## Installing
 To install, run
 ```
 pip install dlin
 ```
-### Using
+## Usage: As a Python Package
 The `dlin.tracer` function converts a scramble
 (set of moves defined by [WCA regulation 12a](https://www.worldcubeassociation.org/regulations/#12a) separated by spaces)
 into a python dictionary describing cycles on the cube. 
