@@ -67,7 +67,9 @@ Here is an example of what could be contained in `described_cycles`
 ```
 ## Usage: Command Line Script
 Run 
-```dlin-trace [scramble]```
+```
+dlin-trace [scramble]
+```
 Make sure to surround the scramble in quotation marks. This will output a json, 
 with similar structure to the dictionary shown above.
 
