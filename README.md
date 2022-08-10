@@ -7,17 +7,17 @@ To install, run
 pip install dlin
 ```
 ## Usage: As a Python Package
-The `dlin.tracer` function converts a scramble
+The `dlin.trace` function converts a scramble
 (set of moves defined by [WCA regulation 12a](https://www.worldcubeassociation.org/regulations/#12a) separated by spaces)
 into a python dictionary describing cycles on the cube. 
 
 To use, run
 ```python
-from dlin import tracer
+from dlin import trace
 ```
 The following is example code to get the tracing for a scramble.
 ```python
-described_cycles = tracer("F' L2 B2 F2 D' F2 D F2 U R2 U' L' B L' R' F2 R2 B2 U2 Fw'")
+described_cycles = trace("F' L2 B2 F2 D' F2 D F2 U R2 U' L' B L' R' F2 R2 B2 U2 Fw'")
 ```
 Here is an example of what could be contained in `described_cycles`
 ```python
