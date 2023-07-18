@@ -85,6 +85,48 @@ class Cube():
             turn(face)
         return
 
+
+    def get_coords(self, p):
+        d = {FACES[x]['axis']: FACES[x]['pos'] for x in p}
+        for i in [0, 1, 2]:
+            if i not in d.keys():
+                d[i] = 1
+        return (d[0], d[1], d[2])
+
+    def pseudoswap(self, e1, e2):
+        # HARDCODED UF UR FOR NOW
+        self.cube[1,2,0].sides = ['', 'U', 'R']
+        self.cube[2,2,1].sides = ['F', 'U', '']
+
+
+        return
+
+        c1, c2 = self.get_coords(e1), self.get_coords(e2)
+        e11, e12 = list(e1)
+        e21, e22 = list(e2)
+
+        # TODO FIX THIS
+        b1 = [x for x in self.cube[c1].sides if x][0]
+        b2 = [x for x in self.cube[c2].sides if x][0]
+
+        for i in range(3):
+            if not self.cube[c1].sides[i]:
+                s1 = i
+                break
+        for i in range(3):
+            if not self.cube[c2].sides[i]:
+                s2 = i
+                break
+        ns1 = sorted(list({0, 1, 2} - {s1}))
+        print(ns1)
+        ns2 = sorted(list({0, 1, 2} - {s2}))
+        print(ns2)
+        self.cube[c1].sides[ns1[0]], self.cube[c1].sides[ns1[1]] = e21, e22
+        self.cube[c2].sides[ns2[0]], self.cube[c2].sides[ns2[1]] = e11, e12
+
+        return
+
+
     def scramble_from_string(self, scram):
         self.scramble = scram
         moves = scram.split(" ")

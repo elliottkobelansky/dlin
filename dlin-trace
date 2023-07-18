@@ -6,7 +6,7 @@ import json
 
 BUFFERS = {
     "corner": ["UFR", "UFL", "UBL", "UBR", "DFR", "DFL", "DBR"],
-    "edge": ["UF", "UB", "UR", "UL", "FR", "FL", "DF", "DB", "DR", "DL"]
+    "edge": ["UF", "UB", "UR", "UL", "FR", "FL", "DF", "DB", "DR", "DL", "BR"]
 }
 
 def main():

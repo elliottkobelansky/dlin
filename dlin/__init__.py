@@ -1,12 +1,10 @@
 from dlin.tracer import Tracer
 
-DEFAULTBUFFERS = {
-    "corner": ["UFR", "UFL", "UBL", "UBR", "DFR", "DFL", "DBR"],
-    "edge": ["UF", "UB", "UR", "UL", "FR", "FL", "DF", "DB", "DR", "DL"]
-}
-
-def trace(scramble, buffers=DEFAULTBUFFERS):
-    s = Tracer(buffers)
+def trace(scramble, pseudoswap=None):
+    s = Tracer()
+    if pseudoswap:
+        e1, e2 = pseudoswap
+        s.pseudoswap(e1, e2)
     s.scramble_from_string(scramble)
     s.trace_cube()
     return s.tracing

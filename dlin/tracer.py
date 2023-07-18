@@ -1,8 +1,12 @@
 import dlin.cube
 import numpy as np
 
+DEFAULTBUFFERS = {"corner": ["UFR", "UFL", "UBL", "UBR", "DFR", "DFL", "DBR"],
+           "edge": ["UF", "UB", "UR", "UL", "FR", "FL", "DF", "DB", "DR", "DL", "BR"]
+}
+
 class Tracer(dlin.cube.Cube):
-    def __init__(self, buffers):
+    def __init__(self, buffers=DEFAULTBUFFERS):
         super().__init__()
         self.tracing = {"edge": [], "corner": []}
         self.buffers = buffers
