@@ -55,7 +55,7 @@ Here is an example of what could be contained in `described_cycles`
         },
         {
             "type": "misoriented",
-            "location": "DBL",
+            "buffer": "DBL",
             "targets": [],
             "orientation": -1,
             "parity": 0,
