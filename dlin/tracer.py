@@ -183,13 +183,13 @@ class Tracer(dlin.cube.Cube):
             flips = self.find_flips()
             if flips:
                 for flip in flips:
-                    self.tracing["edge"].append({"type": "misoriented", "location": flip, "targets": [], "orientation": 1, "parity": 0})
+                    self.tracing["edge"].append({"type": "misoriented", "buffer": flip, "targets": [], "orientation": 1, "parity": 0})
                     
         elif piecetype == "corner":
             twists = self.find_twists()
             if twists:
                 for twist in twists:
-                    self.tracing["corner"].append({"type": "misoriented", "location": twist["location"], "targets": [], "orientation": twist["orientation"], "parity": 0})
+                    self.tracing["corner"].append({"type": "misoriented", "buffer": twist["location"], "targets": [], "orientation": twist["orientation"], "parity": 0})
 
         return
     
@@ -198,9 +198,14 @@ class Tracer(dlin.cube.Cube):
         self.buffers["corner"] = cornerbuffers
         return
 
+    def sort_tracing(self):
+        self.tracing["edge"].sort(key=lambda x: self.buffers["edge"].index(x["buffer"]))
+        self.tracing["corner"].sort(key=lambda x: self.buffers["corner"].index(x["buffer"]))
+
     def trace_cube(self):
         self.tracing = {"edge": [], "corner": [], "scramble": self.scramble}
         self.rotate_into_orientation()
         self.trace_all("corner", self.buffers["corner"])
         self.trace_all("edge", self.buffers["edge"])
+        self.sort_tracing()
         return 
