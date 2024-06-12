@@ -2,7 +2,7 @@ import dlin.cube
 import numpy as np
 
 class Tracer(dlin.cube.Cube):
-    def __init__(self, buffers):
+    def __init__(self, buffers, trace="both"):
         super().__init__()
         self.tracing = {"edge": [], "corner": []}
         self.buffers = buffers
@@ -11,6 +11,9 @@ class Tracer(dlin.cube.Cube):
             for y in range(3):
                 for z in range(3):
                     self.loopcube.append((x, y, z))
+    
+        self.trace_corners = True if trace in {"corners", "both"} else False
+        self.trace_edges = True if trace in {"edges", "both"} else False
 
     def find_piece(self, piecename):
         piecename = set(piecename)
@@ -198,6 +201,21 @@ class Tracer(dlin.cube.Cube):
         self.buffers["corner"] = cornerbuffers
         return
 
+    def manual_swap(self, e1, e2):
+        # CURRENTLY ONLY SUPPORTS PSEUDOSWAPS PRESERVING F/B EO
+        coords1, coords2 = self.coords_from_name(e1), self.coords_from_name(e2)
+        slice1, slice2 = self.cube[coords1].sides.index(''), self.cube[coords2].sides.index('')
+        non_slice1, non_slice2 = sorted(list({0, 1, 2} - {slice1})), sorted(list({0, 1, 2} - {slice2}))
+        piece1, piece2 = [f for f in self.cube[coords1].sides if f], [f for f in self.cube[coords2].sides if f]
+        # idk why you have to do this but it works
+        if sorted([slice1, slice2]) == [0, 1] or sorted([slice1, slice2]) == [0, 2]:
+            piece2 = reversed(piece2)
+            piece1 = reversed(piece1)
+
+        self.cube[coords1].sides[non_slice1[0]], self.cube[coords1].sides[non_slice1[1]] = piece2
+        self.cube[coords2].sides[non_slice2[0]], self.cube[coords2].sides[non_slice2[1]] = piece1
+        return
+
     def sort_tracing(self):
         self.tracing["edge"].sort(key=lambda x: self.buffers["edge"].index(x["buffer"]))
         self.tracing["corner"].sort(key=lambda x: self.buffers["corner"].index(x["buffer"]))
@@ -205,7 +223,9 @@ class Tracer(dlin.cube.Cube):
     def trace_cube(self):
         self.tracing = {"edge": [], "corner": [], "scramble": self.scramble}
         self.rotate_into_orientation()
-        self.trace_all("corner", self.buffers["corner"])
-        self.trace_all("edge", self.buffers["edge"])
+        if self.trace_corners:
+            self.trace_all("corner", self.buffers["corner"])
+        if self.trace_edges:
+            self.trace_all("edge", self.buffers["edge"])
         self.sort_tracing()
         return 
