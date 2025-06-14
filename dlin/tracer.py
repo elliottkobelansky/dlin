@@ -4,7 +4,7 @@ import numpy as np
 class Tracer(dlin.cube.Cube):
     def __init__(self, buffers, trace="both"):
         super().__init__()
-        self.tracing = {"edge": [], "corner": []}
+        self.tracing = {"edge": [], "corner": [], "scramble": ""}
         self.buffers = buffers
         self.loopcube = []
         for x in range(3):
@@ -220,6 +220,32 @@ class Tracer(dlin.cube.Cube):
         self.tracing["edge"].sort(key=lambda x: self.buffers["edge"].index(x["buffer"]))
         self.tracing["corner"].sort(key=lambda x: self.buffers["corner"].index(x["buffer"]))
 
+    def get_cc(self, piece_type):
+        cycles = []
+        misori = 0
+
+        if piece_type == 'e':
+            piece_tracing = self.tracing['edge']
+        else:
+            piece_tracing = self.tracing['corner']
+
+        for cycle in piece_tracing:
+            if cycle['type'] == 'cycle':
+                targets = len(cycle['targets']) + 1
+                orientation = cycle['orientation']
+                cycles.append([targets, orientation])
+            elif cycle['type'] == 'misoriented':
+                misori += 1
+
+        cycles.sort(key=lambda x: (x[0], not x[1]), reverse=True)
+        cc_string = ""
+        for cycle in cycles:
+            stringed = str(cycle[0]) + piece_type + ("'" if cycle[1] else "")
+            cc_string += stringed
+        if misori:
+            cc_string += str(misori) + ('f' if piece_type == 'e' else 't')
+        return cc_string if cc_string else '0'
+
     def trace_cube(self):
         self.tracing = {"edge": [], "corner": [], "scramble": self.scramble}
         self.rotate_into_orientation()
@@ -228,4 +254,6 @@ class Tracer(dlin.cube.Cube):
         if self.trace_edges:
             self.trace_all("edge", self.buffers["edge"])
         self.sort_tracing()
+        self.tracing['edge_cc'] = self.get_cc('e')
+        self.tracing['corner_cc'] = self.get_cc('c')
         return 

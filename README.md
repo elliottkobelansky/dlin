@@ -22,47 +22,69 @@ described_cycles = trace("F' L2 B2 F2 D' F2 D F2 U R2 U' L' B L' R' F2 R2 B2 U2 
 Here is an example of what could be contained in `described_cycles`
 ```python
 {
-    "edge": [
-        {
-            "type": "cycle",
-            "buffer": "UF",
-            "targets": ["LD", "LF", "RU", "LU"],
-            "orientation": 0,
-            "parity": 0,
-        },
-        {
-            "type": "cycle",
-            "buffer": "UB",
-            "targets": ["RB", "DR"],
-            "orientation": 1,
-            "parity": 0,
-        },
-        {
-            "type": "cycle",
-            "buffer": "FR",
-            "targets": ["DB", "DF"],
-            "orientation": 1,
-            "parity": 0,
-        },
-    ],
-    "corner": [
-        {
-            "type": "cycle",
-            "buffer": "UFR",
-            "targets": ["UBL", "RUB", "RDB", "FDR", "UFL", "FDL"],
-            "orientation": 1,
-            "parity": 0,
-        },
-        {
-            "type": "misoriented",
-            "buffer": "DBL",
-            "targets": [],
-            "orientation": -1,
-            "parity": 0,
-        },
-    ],
-    "scramble": "F' L2 B2 F2 D' F2 D F2 U R2 U' L' B L' R' F2 R2 B2 U2 Fw'",
-    "rotation": ["z"],
+  "edge": [
+    {
+      "type": "cycle",
+      "buffer": "UF",
+      "targets": [
+        "LD",
+        "LF",
+        "RU",
+        "LU"
+      ],
+      "orientation": 0,
+      "parity": 0
+    },
+    {
+      "type": "cycle",
+      "buffer": "UB",
+      "targets": [
+        "RB",
+        "DR"
+      ],
+      "orientation": 1,
+      "parity": 0
+    },
+    {
+      "type": "cycle",
+      "buffer": "FR",
+      "targets": [
+        "DB",
+        "DF"
+      ],
+      "orientation": 1,
+      "parity": 0
+    }
+  ],
+  "corner": [
+    {
+      "type": "cycle",
+      "buffer": "UFR",
+      "targets": [
+        "UBL",
+        "RUB",
+        "RDB",
+        "FDR",
+        "UFL",
+        "FDL"
+      ],
+      "orientation": 1,
+      "parity": 0
+    },
+    {
+      "type": "misoriented",
+      "buffer": "DBL",
+      "targets": [],
+      "orientation": -1,
+      "parity": 0
+    }
+  ],
+  "scramble": "F' L2 B2 F2 D' F2 D F2 U R2 U' L' B L' R' F2 R2 B2 U2 Fw'",
+  "rotation": [
+    "z"
+  ],
+  "edge_cc": "5e3e'3e'",
+  "corner_cc": "7c'1t"
 }
 ```
 ## Usage: Command Line Script
